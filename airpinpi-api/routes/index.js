@@ -5,9 +5,9 @@ module.exports = app => {
    * @apiSuccess {String} status API Status' message
    * @apiSuccessExample {json} Success
    *    HTTP/1.1 200 OK
-   *    {"status": "NTask API"}
+   *    {"status": "Ok"}
    */
   app.get('/', (req, res) => {
-    res.json({ status: 'NTask API' });
+    res.json({ status: 'ok' });
   });
 };

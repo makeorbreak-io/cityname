@@ -1,5 +1,5 @@
 import http from 'http';
-import fs from 'fs';
+// import fs from 'fs';
 
 module.exports = app => {
   if (process.env.NODE_ENV !== 'test') {

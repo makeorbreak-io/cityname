@@ -1,28 +1,23 @@
 module.exports = (sequelize, DataType) => {
-  const Tasks = sequelize.define('Tasks', {
+  const ToiletExtras = sequelize.define('ToiletExtras', {
     id: {
       type: DataType.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    title: {
+    name: {
       type: DataType.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    done: {
-      type: DataType.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
-    },
   }, {
     classMethods: {
       associate: (models) => {
-        Tasks.belongsTo(models.Users);
+        ToiletExtras.hasMany(models.Toilets);
       },
     },
   });
-  return Tasks;
+  return ToiletExtras;
 };

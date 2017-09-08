@@ -38,11 +38,20 @@ module.exports = (sequelize, DataType) => {
       allowNull: false,
       defaultValue: 5,
     },
+    img: {
+      type: DataType.TEXT,
+      allowNull: false,
+    },
   }, {
     classMethods: {
       associate: (models) => {
         WCs.belongsTo(models.Users);
         WCs.belongsTo(models.WCCategories);
+        WCs.belongsTo(models.WCWashBasins);
+        WCs.belongsTo(models.WCViews);
+        WCs.belongsTo(models.WCUrinols);
+        WCs.belongsTo(models.WCToilets);
+        WCs.belongsTo(models.WCBathTubs);
         WCs.hasMany(models.Ratings);
         WCs.belongsToMany(models.WCExtras, { through: 'WCsExtras' });
       },

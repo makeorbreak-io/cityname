@@ -28,7 +28,7 @@ module.exports = (sequelize, DataType) => {
     classMethods: {
       associate: (models) => {
         Ratings.belongsToMany(models.Users, { through: 'RatingsUsers' });
-        Ratings.belongsToMany(models.Toilets, { through: 'RatingsToilets' });
+        Ratings.belongsToMany(models.WCs, { through: 'RatingsWCs' });
       },
     },
   });

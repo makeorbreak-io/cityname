@@ -38,7 +38,7 @@ module.exports = (sequelize, DataType) => {
     },
     classMethods: {
       associate: models => {
-        Users.hasMany(models.Toilets);
+        Users.hasMany(models.WCs);
         Users.hasMany(models.Ratings);
       },
       isPassword: (encodedPassword, password) => {

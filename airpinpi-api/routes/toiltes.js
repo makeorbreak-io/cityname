@@ -1,6 +1,6 @@
 module.exports = app => {
-  const Toilets = app.db.models.Toilets;
-  const ToiletCategories = app.db.models.ToiletCategories;
+  const WCs = app.db.models.WCs;
+  const WCCategories = app.db.models.WCCategories;
 
   app.route('/toilets')
     .all(app.auth.authenticate())
@@ -31,8 +31,8 @@ module.exports = app => {
      *    HTTP/1.1 412 Precondition Failed
      */
     .get((req, res) => {
-      Toilets.findAll({
-        include: [ToiletCategories],
+      WCs.findAll({
+        include: [WCCategories],
         where: { user_id: req.user.id },
       })
       .then(result => res.json(result))
@@ -70,7 +70,7 @@ module.exports = app => {
      */
     .post((req, res) => {
       req.body.user_id = req.user.id;
-      Toilets.create(req.body)
+      WCs.create(req.body)
         .then(result => res.json(result))
         .catch(error => {
           res.status(412).json({ msg: error.message });
@@ -108,7 +108,7 @@ module.exports = app => {
      *    HTTP/1.1 412 Precondition Failed
      */
     .get((req, res) => {
-      Toilets.findOne({ where: {
+      WCs.findOne({ where: {
         id: req.params.id,
         user_id: req.user.id,
       } })
@@ -143,7 +143,7 @@ module.exports = app => {
      *    HTTP/1.1 412 Precondition Failed
      */
     .put((req, res) => {
-      Toilets.update(req.body, { where: {
+      WCs.update(req.body, { where: {
         id: req.params.id,
         user_id: req.user.id,
       } })
@@ -165,7 +165,7 @@ module.exports = app => {
      *    HTTP/1.1 412 Precondition Failed
      */
     .delete((req, res) => {
-      Toilets.destroy({ where: {
+      WCs.destroy({ where: {
         id: req.params.id,
         user_id: req.user.id,
       } })

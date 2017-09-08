@@ -1,7 +1,8 @@
 module.exports = app => {
-  const Tasks = app.db.models.Tasks;
+  const Toilets = app.db.models.Toilets;
+  const ToiletCategories = app.db.models.ToiletCategories;
 
-  app.route('/tasks')
+  app.route('/toilets')
     .all(app.auth.authenticate())
     /**
      * @api {get} /tasks List the user's tasks
@@ -30,7 +31,8 @@ module.exports = app => {
      *    HTTP/1.1 412 Precondition Failed
      */
     .get((req, res) => {
-      Tasks.findAll({
+      Toilets.findAll({
+        include: [ToiletCategories],
         where: { user_id: req.user.id },
       })
       .then(result => res.json(result))
@@ -68,7 +70,7 @@ module.exports = app => {
      */
     .post((req, res) => {
       req.body.user_id = req.user.id;
-      Tasks.create(req.body)
+      Toilets.create(req.body)
         .then(result => res.json(result))
         .catch(error => {
           res.status(412).json({ msg: error.message });
@@ -106,7 +108,7 @@ module.exports = app => {
      *    HTTP/1.1 412 Precondition Failed
      */
     .get((req, res) => {
-      Tasks.findOne({ where: {
+      Toilets.findOne({ where: {
         id: req.params.id,
         user_id: req.user.id,
       } })
@@ -141,7 +143,7 @@ module.exports = app => {
      *    HTTP/1.1 412 Precondition Failed
      */
     .put((req, res) => {
-      Tasks.update(req.body, { where: {
+      Toilets.update(req.body, { where: {
         id: req.params.id,
         user_id: req.user.id,
       } })
@@ -163,7 +165,7 @@ module.exports = app => {
      *    HTTP/1.1 412 Precondition Failed
      */
     .delete((req, res) => {
-      Tasks.destroy({ where: {
+      Toilets.destroy({ where: {
         id: req.params.id,
         user_id: req.user.id,
       } })

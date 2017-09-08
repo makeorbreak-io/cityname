@@ -19,6 +19,20 @@ module.exports = (sequelize, DataType) => {
         notEmpty: true,
       },
     },
+    lat: {
+      type: DataType.DECIMAL(10, 8),
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    lng: {
+      type: DataType.DECIMAL(10, 8),
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
     rating: {
       type: DataType.INTEGER,
       allowNull: false,

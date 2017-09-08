@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataType) => {
-  const Toilets = sequelize.define('Toilets', {
+  const Ratings = sequelize.define('Ratings', {
     id: {
       type: DataType.INTEGER,
       primaryKey: true,
@@ -27,12 +27,10 @@ module.exports = (sequelize, DataType) => {
   }, {
     classMethods: {
       associate: (models) => {
-        Toilets.belongsTo(models.Users);
-        Toilets.belongsTo(models.ToiletCategories);
-        Toilets.hasMany(models.Ratings);
-        Toilets.belongsToMany(models.ToiletExtras, { through: 'ToiletsExtras' });
+        Ratings.belongsToMany(models.Users, { through: 'RatingsUsers' });
+        Ratings.belongsToMany(models.Toilets, { through: 'RatingsToilets' });
       },
     },
   });
-  return Toilets;
+  return Ratings;
 };

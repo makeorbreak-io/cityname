@@ -10,10 +10,9 @@ module.exports = app => {
      * @apiHeader {String} Authorization Token of authenticated user
      * @apiHeaderExample {json} Header
      *    {"Authorization": "JWT xyz.abc.123.hgf"}
-     * @apiSuccess {Object[]} WCss WCs's list
-     * @apiSuccess {Number} WCss.id WCs id
-     * @apiSuccess {String} WCss.title WCs title
-     * @apiSuccess {Boolean} WCss.done WCs is done?
+     * @apiSuccess {Object[]} WCs's list
+     * @apiSuccess {Number} WCs.id WCs id
+     * @apiSuccess {String} WCs.name WCs title
      * @apiSuccess {Date} WCss.updated_at Update's date
      * @apiSuccess {Date} WCss.created_at Register's date
      * @apiSuccess {Number} WCss.user_id Id do usuário
@@ -75,6 +74,43 @@ module.exports = app => {
           res.status(412).json({ msg: error.message });
         });
     });*/
+
+  app.route('/wcs/categories')
+    /**
+     * @api {get} /wcs/categories List all WCs categories
+     * @apiGroup WCs
+     * @apiHeader {String} Authorization Token of authenticated user
+     * @apiHeaderExample {json} Header
+     *    {"Authorization": "JWT xyz.abc.123.hgf"}
+     * @apiSuccess {Object[]} WCCategories's list
+     * @apiSuccess {Number} WCCategories.id WCs id
+     * @apiSuccess {String} WCCategories.name WCs title
+     * @apiSuccess {Date} WCCategories.updated_at Update's date
+     * @apiSuccess {Date} WCCategories.created_at Register's date
+     * @apiSuccessExample {json} Success
+     *    HTTP/1.1 200 OK
+     *    [{
+     *      "id": 1,
+     *      "name": "Full Bathroom",
+     *      "updated_at": "2016-02-10T15:46:51.778Z",
+     *      "created_at": "2016-02-10T15:46:51.778Z",
+     *    }]
+     * @apiErrorExample {json} List error
+     *    HTTP/1.1 412 Precondition Failed
+     */
+    .get((req, res) => {
+      WCCategories.findAll()
+      .then(result => {
+        if (result) {
+          res.json(result);
+        } else {
+          res.sendStatus(404);
+        }
+      })
+      .catch(error => {
+        res.status(412).json({ msg: error.message });
+      });
+    });
 
   app.route('/wcs/:id')
     .all(app.auth.authenticate())

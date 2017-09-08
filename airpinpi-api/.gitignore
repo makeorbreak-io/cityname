@@ -3,7 +3,7 @@ node_modules
 ntask.sqlite
 public
 logs
-
+libs/config.development.js
 # osx
 .DS_Store
 

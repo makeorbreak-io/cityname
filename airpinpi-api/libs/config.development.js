@@ -1,12 +1,12 @@
 import logger from './logger.js';
 
 module.exports = {
-  database: 'ntask',
-  username: '',
-  password: '',
+  host: 'airpinpi.tk',
+  database: 'app',
+  username: 'app',
+  password: 'mickey3G4Y!',
   params: {
-    dialect: 'sqlite',
-    storage: 'ntask.sqlite',
+    dialect: 'mysql',
     logging: (sql) => {
       logger.info(`[${new Date()}] ${sql}`);
     },
@@ -14,6 +14,6 @@ module.exports = {
       underscored: true,
     },
   },
-  jwtSecret: 'Nta$K-AP1',
+  jwtSecret: 'A1rP1nP!',
   jwtSession: { session: false },
 };

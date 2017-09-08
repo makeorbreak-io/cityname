@@ -4,13 +4,13 @@ module.exports = seed => {
 
   Users.create({
     name: 'Hélder Pereira',
-    email: 'helder@airpinpi.tk',
+    email: 'helder@airpeenpee.tk',
     password: '123456',
   });
 
   Users.create({
     name: 'Ricardo Moreira',
-    email: 'ricardo@airpinpi.tk',
+    email: 'ricardo@airpeenpee.tk',
     password: '123456',
   });
 

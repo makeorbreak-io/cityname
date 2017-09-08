@@ -2,7 +2,7 @@ module.exports = app => {
   const WCs = app.db.models.WCs;
   const WCCategories = app.db.models.WCCategories;
 
-  app.route('/toilets')
+  app.route('/wcs')
     .all(app.auth.authenticate())
     /**
      * @api {get} /tasks List the user's tasks

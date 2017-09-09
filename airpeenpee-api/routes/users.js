@@ -24,7 +24,7 @@ module.exports = app => {
      */
     .get((req, res) => {
       Users.findById(req.user.id, {
-        attributes: ['id', 'name', 'email','filters'],
+        attributes: ['id', 'name', 'email', 'filters'],
       })
       .then(result => res.json(result))
       .catch(error => {
@@ -121,10 +121,18 @@ module.exports = app => {
   app.route('/user/update')
   .all(app.auth.authenticate())
   .post((req, res) => {
-    Users.findOne({where : { id : req.user.id}})
-    .then(dbUser => {
-      dbUser.update({filters : req.body.filters})
-      .then(result => res.json({id : result.id, email : result.email, filters : result.filters}));
+    Users.findOne({
+      where: {
+        id: req.user.id,
+      },
+    }).then(dbUser => {
+      dbUser.update({
+        filters: req.body.filters,
+      }).then(result => res.json({
+        id: result.id,
+        email: result.email,
+        filters: result.filters,
+      }));
     })
     .catch(error => {
       res.status(412).json({ msg: error.message });

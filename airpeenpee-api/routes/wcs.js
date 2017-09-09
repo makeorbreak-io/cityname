@@ -86,6 +86,21 @@ module.exports = app => {
         });
     });*/
 
+  app.route('/wcs/me')
+    .all(app.auth.authenticate())
+    .get((req, res) => {
+      WCs.findAll({
+        include: [WCCategories],
+        where: { user_id: req.user.id },
+      })
+      .then(result => {
+        res.json(result);
+      })
+      .catch(error => {
+        res.status(412).json({ msg: error.message });
+      });
+    });
+
   app.route('/wcs/categories')
     /**
      * @api {get} /wcs/categories List all WCs categories

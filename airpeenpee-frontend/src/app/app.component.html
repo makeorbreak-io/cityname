@@ -3,13 +3,13 @@
 
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">{{ configuration.applicationName }}</a>
+      <a class="navbar-brand" routerLink="/">{{ configuration.applicationName }}</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-navbar-collapse">
       <ul class="nav navbar-nav">
-        <button *ngIf="isLoggedIn()" type="button" class="btn btn-default navbar-btn">Rent your bathroom</button>
+        <button *ngIf="isLoggedIn()" routerLink="bathroom" type="button" class="btn btn-default navbar-btn">Your bathrooms</button>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
@@ -44,6 +44,7 @@
         <button *ngIf="isLoggedIn()" (click)="logout()" type="button" class="btn btn-danger navbar-btn">Logout</button>
       </ul>
     </div><!-- /.navbar-collapse -->
+<<<<<<< HEAD
     <agm-map
       [latitude]="lat"
       [longitude]="lng"
@@ -68,6 +69,11 @@
       </agm-marker>
 
     </agm-map>
+=======
+>>>>>>> 543b4335a83b7c70a342638874fd1a0d239a1bf1
   </div><!-- /.container-fluid -->
 </nav>
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]=15>
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map>
 <router-outlet></router-outlet>

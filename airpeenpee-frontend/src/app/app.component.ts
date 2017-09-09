@@ -3,12 +3,18 @@ import { CONFIG } from "./core/config/config";
 import { IConfig } from "./core/config/iconfig";
 import { AuthenticationService } from "./core/services/authentication.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { GeoLocationServive } from "./core/services/geolocation.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  styleUrls: ['app.component.css'],
 })
+
 export class AppComponent implements OnInit {
+
+  lat: number;
+  lng: number;
 
   /**
    * Login form.
@@ -43,13 +49,21 @@ export class AppComponent implements OnInit {
 
   constructor(@Inject(CONFIG) public configuration: IConfig,
               public authenticationService: AuthenticationService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              public geoLocationServive: GeoLocationServive) {
   }
 
   /**
    * Called on component initialization.
    */
   ngOnInit(): void {
+
+    this.geoLocationServive.getCurrentLocation()
+    .subscribe(response => {
+      this.lat = response.lat;
+      this.lng = response.lon;
+    });
+
     this.loginForm = this.formBuilder.group({
       email: [ '', [ Validators.required, Validators.email ] ],
       password: [ '', [ Validators.required, Validators.minLength(6) ] ]

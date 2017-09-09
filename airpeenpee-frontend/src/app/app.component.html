@@ -46,7 +46,9 @@
         <button *ngIf="isLoggedIn()" (click)="logout()" type="button" class="btn btn-danger navbar-btn">Logout</button>
       </ul>
     </div><!-- /.navbar-collapse -->
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]=15>
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
   </div><!-- /.container-fluid -->
 </nav>
 <router-outlet></router-outlet>
-

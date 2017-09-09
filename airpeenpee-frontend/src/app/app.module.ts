@@ -10,6 +10,9 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
 
+/* Angular Google Maps Module */
+import { AgmCoreModule } from '@agm/core';
+
 /* Routing */
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' }
@@ -25,11 +28,15 @@ const routes: Routes = [
       enableTracing: true
     }),
     CoreModule,
-    BsDropdownModule.forRoot(),
-    ReactiveFormsModule
+    AgmCoreModule.forRoot({
+    apiKey: 'AIzaSyCrhTDUFc1VSjsgf-jsKMMt82eAPThftt0'
+  })
   ],
   providers: [
     FormBuilder
+  ],
+    BsDropdownModule.forRoot(),
+    ReactiveFormsModule
   ],
   bootstrap: [
     AppComponent

@@ -7,6 +7,7 @@ import { CONFIG, Config } from './config/config';
 
 /* Services */
 import { AuthenticationService } from './services/authentication.service';
+import { GeoLocationServive } from './services/geolocation.service';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { AuthenticationService } from './services/authentication.service';
   ],
   providers: [
     { provide: CONFIG, useValue: Config },
-    AuthenticationService
+    AuthenticationService,
+    GeoLocationServive
   ],
   declarations: [ ]
 })

@@ -40,6 +40,15 @@ export class AuthenticationService {
   }
 
   /**
+   * Returns the token of the authenticated user if he's authenticated.
+   *
+   * @returns {string} Token of the authenticated user.
+   */
+  token() {
+    return (this.authenticatedUser.token != null) ? `${this.authenticatedUser.token}` : ``;
+  }
+
+  /**
    * Returns the name of the authenticated user if he's authenticated.
    *
    * @returns {string} Name of the authenticated user.
@@ -68,7 +77,8 @@ export class AuthenticationService {
    */
   register(name: string, email: string, password: string) {
     let headers = new Headers({
-      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     });
 
     this.http.post(
@@ -81,8 +91,7 @@ export class AuthenticationService {
       .map(response => response.json())
       .catch((error: any) => Observable.throw(error.json().message || 'Invalid credentials'))
       .subscribe(response => {
-        this.authenticatedUser = response;
-        localStorage.setItem(this.configuration.sessionStorageName, JSON.stringify(response));
+
       });
   }
 

@@ -25,12 +25,12 @@ export class GeoLocationServive {
 
   getCurrentLocation() {
 
-    let lat;
-    let lng;
-
-    this.http.get(this.configuration.currentLocation).subscribe(data => {
-      console.log(data);
-    });
+    return this.http.get(this.configuration.currentLocation)
+    .map(response => response.json())
+    .catch((error) => {
+        console.log('error ' + error);
+        throw error;
+      });
 
   };
 

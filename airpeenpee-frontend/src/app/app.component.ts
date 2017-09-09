@@ -9,30 +9,27 @@ import { GeoLocationServive } from "./core/services/geolocation.service";
   templateUrl: './app.component.html',
   styleUrls: ['app.component.css'],
 })
-<<<<<<< HEAD
 
-export class AppComponent {
-=======
 export class AppComponent implements OnInit {
->>>>>>> 17b65e6df6603fae3269ee546f9ea62c5e8e1e6e
 
   lat: number = 56.565656;
   lng: number = -56.7676;
+  coors: object;
 
   /**
    * Called on component initialization.
    */
   ngOnInit(): void {
-    // Here kty... xD
+      this.geoLocationServive.getCurrentLocation()
+      .subscribe(response => {
+        this.lat = response.lat;
+        this.lng = response.lon;
+    });
   }
 
   constructor(@Inject(CONFIG) public configuration: IConfig,
               public authenticationService: AuthenticationService,
               public geoLocationServive: GeoLocationServive) {
-  }
-
-  getCurrentLocation(){
-    geoLocationServive.getCurrentLocation();
   }
 
 }

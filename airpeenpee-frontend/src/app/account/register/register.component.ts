@@ -20,9 +20,9 @@ export class RegisterComponent implements OnInit {
    * @type {array} Array of errors found in the registration form.
    */
   registerFormErrors = {
+    'name': '',
     'email': '',
-    'password': '',
-    'name': ''
+    'password': ''
   };
 
   /**
@@ -31,6 +31,9 @@ export class RegisterComponent implements OnInit {
    * @type {array} Array of validation messages per field of the register form.
    */
   validationMessages = {
+    'name': {
+      'required': 'Name is required.'
+    },
     'email': {
       'required': 'Email is required.',
       'email': 'Email is invalid.',
@@ -38,9 +41,6 @@ export class RegisterComponent implements OnInit {
     'password': {
       'required': 'Password is required.',
       'minlength': 'Password should be atleast 6 characters long.'
-    },
-    'name': {
-      'required': 'Name is required.'
     }
   };
 
@@ -61,10 +61,9 @@ export class RegisterComponent implements OnInit {
    */
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      email: [ '', [ Validators.required, Validators.email ] ],
-      password: [ '', [ Validators.required, Validators.minLength(6) ] ],
       name: [ '', Validators.required ],
-      calories: [ '', [ Validators.required, Validators.pattern('[0-9]+') ] ]
+      email: [ '', [ Validators.required, Validators.email ] ],
+      password: [ '', [ Validators.required, Validators.minLength(6) ] ]
     });
 
     this.registerForm.valueChanges.subscribe(data => this.onValueChanged(data));

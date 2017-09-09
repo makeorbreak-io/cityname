@@ -30,6 +30,7 @@ module.exports = app => {
           if (Users.isPassword(user.password, password)) {
             const payload = { id: user.id };
             res.json({
+              name: user.name,
               token: jwt.encode(payload, cfg.jwtSecret),
               filters: user.filters,
             });

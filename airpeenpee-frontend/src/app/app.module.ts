@@ -28,20 +28,16 @@ const routes: Routes = [
       enableTracing: true
     }),
     CoreModule,
-<<<<<<< HEAD
     AgmCoreModule.forRoot({
     apiKey: 'AIzaSyCrhTDUFc1VSjsgf-jsKMMt82eAPThftt0'
   })
   ],
-  providers: [],
-=======
-    BsDropdownModule.forRoot(),
-    ReactiveFormsModule
-  ],
   providers: [
     FormBuilder
   ],
->>>>>>> f6699a0407ba48d9062f8dbcc7453d6319ff1914
+    BsDropdownModule.forRoot(),
+    ReactiveFormsModule
+  ],
   bootstrap: [
     AppComponent
   ]

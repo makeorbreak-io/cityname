@@ -1,5 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpModule } from '@angular/http';
 
 /* Configuration */
 import { CONFIG, Config } from './config/config';
@@ -9,7 +10,8 @@ import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    HttpModule
   ],
   providers: [
     { provide: CONFIG, useValue: Config },

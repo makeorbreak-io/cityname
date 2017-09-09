@@ -11,10 +11,59 @@ import { GeoLocationServive } from "./core/services/geolocation.service";
   styleUrls: ['app.component.css'],
 })
 
+
 export class AppComponent implements OnInit {
 
+  marker: marker;
   lat: number;
   lng: number;
+  zoom: number = 15;
+  styles: object= [
+  {
+    "featureType": "administrative.land_parcel",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.neighborhood",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  }
+];
+  markers: marker[] = [];
 
   /**
    * Login form.
@@ -53,15 +102,36 @@ export class AppComponent implements OnInit {
               public geoLocationServive: GeoLocationServive) {
   }
 
+
+
   /**
    * Called on component initialization.
    */
   ngOnInit(): void {
     this.geoLocationServive.getCurrentLocation()
     .subscribe(response => {
+      this.markers.push({
+  		  lat: response.lat,
+  		  lng: response.lon,
+  		  label: 'YOU ARE HERE'
+  	  });
       this.lat = response.lat;
       this.lng = response.lon;
+
+      this.geoLocationServive.setAllMarkers(this.lat,this.lng)
+      .subscribe(response => {
+        response.forEach((element) =>{
+          this.markers.push({
+      		  lat: element.lat,
+      		  lng: element.lng,
+      		  label: element.name
+      	  });
+        });
+        console.log(this.markers);
+      });
+
     });
+
 
     this.loginForm = this.formBuilder.group({
       email: [ '', [ Validators.required, Validators.email ] ],
@@ -130,5 +200,11 @@ export class AppComponent implements OnInit {
       }
     }
   }
+}
 
+interface marker {
+	lat: number;
+	lng: number;
+	label?: string;
+	draggable?: false;
 }

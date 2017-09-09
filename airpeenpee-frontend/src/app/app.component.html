@@ -44,8 +44,29 @@
         <button *ngIf="isLoggedIn()" (click)="logout()" type="button" class="btn btn-danger navbar-btn">Logout</button>
       </ul>
     </div><!-- /.navbar-collapse -->
-    <agm-map [latitude]="lat" [longitude]="lng" [zoom]=15>
-      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    <agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+      [styles]="styles"
+      [zoom]="zoom"
+      [disableDefaultUI]="false"
+      [zoomControl]="false"
+      [streetViewControl]="false"
+      [mapTypeId]="'roadmap'"
+      (mapClick)="mapClicked($event)">
+
+      <agm-marker
+          *ngFor="let m of markers; let i = index"
+          (markerClick)="clickedMarker(m.label, i)"
+          [latitude]="m.lat"
+          [longitude]="m.lng"
+          [label]="m.label"
+          [iconUrl]="'/assets/whereyoumakethapoop.png'"
+          [markerDraggable]="m.draggable"
+          (dragEnd)="markerDragEnd(m, $event)">
+
+      </agm-marker>
+
     </agm-map>
   </div><!-- /.container-fluid -->
 </nav>

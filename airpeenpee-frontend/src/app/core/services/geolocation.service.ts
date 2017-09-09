@@ -23,6 +23,17 @@ export class GeoLocationServive {
               @Inject(CONFIG) private configuration) {
   }
 
+  setAllMarkers(lat: number, lng: number) {
+    
+    return this.http.get(`${this.configuration.applicationURL}/wcs?lat=${lat}&lng=${lng}`)
+    .map(response => response.json())
+    .catch((error) => {
+        console.log('error ' + error);
+        throw error;
+      });
+
+  };
+
   getCurrentLocation() {
 
     return this.http.get(this.configuration.currentLocation)

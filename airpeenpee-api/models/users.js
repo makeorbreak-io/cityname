@@ -29,6 +29,10 @@ module.exports = (sequelize, DataType) => {
         notEmpty: true,
       },
     },
+    filters: {
+      type: DataType.TEXT,
+      allowNull: true,
+    },
   }, {
     hooks: {
       beforeCreate: user => {

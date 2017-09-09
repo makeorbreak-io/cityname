@@ -9,6 +9,7 @@ import { CONFIG } from "../config/config";
 
 /* Models */
 import { AuthenticatedUser } from '../models/AuthenticatedUser';
+import { $ } from "protractor";
 
 @Injectable()
 export class AuthenticationService {
@@ -32,6 +33,8 @@ export class AuthenticationService {
               @Inject(CONFIG) private configuration) {
     if (localStorage.getItem(this.configuration.sessionStorageName)) {
       this.authenticatedUser = JSON.parse(localStorage.getItem(this.configuration.sessionStorageName));
+    } else {
+      this.authenticatedUser = null;
     }
   }
 
@@ -41,7 +44,7 @@ export class AuthenticationService {
    * @returns {boolean} True if the user is logged in, false otherwise.
    */
   isLoggedIn() {
-    return !!this.authenticatedUser;
+    return this.authenticatedUser != null;
   }
 
   /**
@@ -58,7 +61,7 @@ export class AuthenticationService {
     });
 
     this.http.post(
-      this.configuration.applicationURL,
+      this.configuration.applicationURL + '/token',
       JSON.stringify({
         email: email,
         password: password

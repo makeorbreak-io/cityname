@@ -6,6 +6,6 @@ export let CONFIG = new InjectionToken('app.configuration');
 
 export const Config: IConfig = {
   applicationName: 'AirPeeNPee',
-  applicationURL: 'api.airpeenpee.tk',
+  applicationURL: 'http://api.airpeenpee.tk',
   sessionStorageName: 'authenticated_user'
 };

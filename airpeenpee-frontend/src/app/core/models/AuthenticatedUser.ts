@@ -1,3 +1,6 @@
 export class AuthenticatedUser {
-  token: string
+
+  name: string;
+  token: string;
+
 }

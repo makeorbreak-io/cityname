@@ -57,7 +57,6 @@ export class AppComponent implements OnInit {
    * Called on component initialization.
    */
   ngOnInit(): void {
-
     this.geoLocationServive.getCurrentLocation()
     .subscribe(response => {
       this.lat = response.lat;
@@ -79,6 +78,15 @@ export class AppComponent implements OnInit {
    */
   isLoggedIn() {
     return this.authenticationService.isLoggedIn();
+  }
+
+  /**
+   * Returns the name of the authenticated user.
+   *
+   * @returns {string} Name of the authenticated user.
+   */
+  greeting() {
+    return this.authenticationService.greeting();
   }
 
   /**

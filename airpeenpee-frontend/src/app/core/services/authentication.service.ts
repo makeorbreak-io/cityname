@@ -15,10 +15,13 @@ import { $ } from "protractor";
 export class AuthenticationService {
 
   /**
-   * Authenticated User.
+   * @type {AuthenticatedUser} Authenticated user.
    */
-  private authenticatedUser: AuthenticatedUser = null;
+  private authenticatedUser: AuthenticatedUser = new AuthenticatedUser();
 
+  /**
+   * @type {string} Name of the session in the local storage.
+   */
   private static STORAGE_NAME: string = "authenticated_user";
 
   /**
@@ -33,9 +36,16 @@ export class AuthenticationService {
               @Inject(CONFIG) private configuration) {
     if (localStorage.getItem(this.configuration.sessionStorageName)) {
       this.authenticatedUser = JSON.parse(localStorage.getItem(this.configuration.sessionStorageName));
-    } else {
-      this.authenticatedUser = null;
     }
+  }
+
+  /**
+   * Returns the name of the authenticated user if he's authenticated.
+   *
+   * @returns {string} Name of the authenticated user.
+   */
+  greeting() {
+    return (this.authenticatedUser.name != null) ? `Hello, ${this.authenticatedUser.name}` : ``;
   }
 
   /**
@@ -44,7 +54,7 @@ export class AuthenticationService {
    * @returns {boolean} True if the user is logged in, false otherwise.
    */
   isLoggedIn() {
-    return this.authenticatedUser != null;
+    return this.authenticatedUser.token != null;
   }
 
   /**
@@ -62,7 +72,7 @@ export class AuthenticationService {
     });
 
     this.http.post(
-      this.configuration.applicationURL + '/token',
+      `${this.configuration.applicationURL}/users`,
       JSON.stringify({
         name: name,
         email: email,
@@ -90,7 +100,7 @@ export class AuthenticationService {
     });
 
     this.http.post(
-      this.configuration.applicationURL + '/token',
+      `${this.configuration.applicationURL}/token`,
       JSON.stringify({
         email: email,
         password: password
@@ -108,7 +118,7 @@ export class AuthenticationService {
    */
   logout() {
     localStorage.removeItem(this.configuration.sessionStorageName);
-    this.authenticatedUser = null;
+    this.authenticatedUser = new AuthenticatedUser();
   }
 
 }

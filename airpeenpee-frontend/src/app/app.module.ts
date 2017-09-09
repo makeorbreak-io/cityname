@@ -29,17 +29,29 @@ const routes: Routes = [
     }),
     CoreModule,
     AgmCoreModule.forRoot({
-    apiKey: 'AIzaSyCrhTDUFc1VSjsgf-jsKMMt82eAPThftt0'
-  })
+      apiKey: 'AIzaSyCrhTDUFc1VSjsgf-jsKMMt82eAPThftt0'
+    }),
+    ReactiveFormsModule,
+    BsDropdownModule.forRoot()
   ],
   providers: [
     FormBuilder
-  ],
-    BsDropdownModule.forRoot(),
-    ReactiveFormsModule
   ],
   bootstrap: [
     AppComponent
   ]
 })
 export class AppModule { }
+
+/*
+
+ @NgModule({
+ declarations: [
+ ],
+ providers: [
+ FormBuilder
+ ],
+ BsDropdownModule.forRoot(),
+ ReactiveFormsModule
+ ],
+ */

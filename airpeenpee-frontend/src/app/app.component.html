@@ -23,7 +23,9 @@
         <button type="button" class="btn btn-warning navbar-btn">Logout</button>
       </ul>
     </div><!-- /.navbar-collapse -->
+    <agm-map [latitude]="lat" [longitude]="lng">
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
   </div><!-- /.container-fluid -->
 </nav>
 <router-outlet></router-outlet>
-

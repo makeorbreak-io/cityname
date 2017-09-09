@@ -8,6 +8,9 @@ import { AppComponent } from './app.component';
 /* Feature Modules */
 import { CoreModule } from './core/core.module';
 
+/* Angular Google Maps Module */
+import { AgmCoreModule } from '@agm/core';
+
 /* Routing */
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' }
@@ -22,9 +25,12 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       enableTracing: true
     }),
-    CoreModule
+    CoreModule,
+    AgmCoreModule.forRoot({
+    apiKey: 'AIzaSyCrhTDUFc1VSjsgf-jsKMMt82eAPThftt0'
+  })
   ],
-  providers: [ ],
+  providers: [],
   bootstrap: [
     AppComponent
   ]

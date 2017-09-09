@@ -43,7 +43,7 @@ module.exports = (sequelize, DataType) => {
       allowNull: false,
     },
     price: {
-      type: DataType.DECIMAL(10, 8),
+      type: DataType.DECIMAL(10, 2),
       allowNull: false,
       validate: {
         notEmpty: true,

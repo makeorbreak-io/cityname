@@ -15,7 +15,8 @@ import { AgmCoreModule } from '@agm/core';
 
 /* Routing */
 const routes: Routes = [
-  { path: '', redirectTo: '', pathMatch: 'full' }
+  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: 'account', loadChildren: 'app/account/account.module#AccountModule' }
 ];
 
 @NgModule({

@@ -13,7 +13,7 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <button *ngIf="!isLoggedIn()" type="button" class="btn btn-info navbar-btn">Register</button>
+        <button *ngIf="!isLoggedIn()" routerLink="account/register" type="button" class="btn btn-info navbar-btn">Register</button>
         <div *ngIf="!isLoggedIn()" class="btn-group" dropdown>
           <button dropdownToggle type="button" class="btn btn-success navbar-btn">
             Login <span class="caret"></span>
@@ -40,7 +40,7 @@
             </li>
           </ul>
         </div>
-        <p class="navbar-text">{{ greeting() }}</p>
+        <p *ngIf="isLoggedIn()" class="navbar-text">{{ greeting() }}</p>
         <button *ngIf="isLoggedIn()" (click)="logout()" type="button" class="btn btn-danger navbar-btn">Logout</button>
       </ul>
     </div><!-- /.navbar-collapse -->

@@ -10,7 +10,7 @@ consign({ verbose: false })
   .then('libs/middlewares.js')
   .then('routes')
   .then('libs/boot.js')
-  //.then('seed/initialData.js')
+  // .then('seed/initialData.js')
   .into(app);
 
 module.exports = app;

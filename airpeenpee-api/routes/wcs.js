@@ -29,11 +29,22 @@ module.exports = app => {
      *    HTTP/1.1 412 Precondition Failed
      */
     .get((req, res) => {
-      WCs.findAll({
+      let lat = req.query.lat;
+      let lng = req.query.lng;
+
+      if (!lat || !lng) {
+        lat = '41.15';
+        lng = '-8.61024';
+      }
+      /* WCs.findAll({
         include: [WCCategories],
         // where: { user_id: req.user.id },
+      }) */
+      WCs.getPlaceByLatLng(lat, lng, '')
+      .then(result => {
+        result.pop();
+        res.json(result[0]);
       })
-      .then(result => res.json(result))
       .catch(error => {
         res.status(412).json({ msg: error.message });
       });

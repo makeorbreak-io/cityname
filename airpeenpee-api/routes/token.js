@@ -31,6 +31,7 @@ module.exports = app => {
             const payload = { id: user.id };
             res.json({
               token: jwt.encode(payload, cfg.jwtSecret),
+              filters: user.filters,
             });
           } else {
             res.sendStatus(401);

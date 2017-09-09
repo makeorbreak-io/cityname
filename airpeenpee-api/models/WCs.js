@@ -62,6 +62,30 @@ module.exports = (sequelize, DataType) => {
         WCs.hasMany(models.Ratings);
         WCs.belongsToMany(models.WCExtras, { through: 'WCsExtras' });
       },
+      getPlaceByLatLng: (lat, lng, filter) => {
+        const qry = `SELECT DISTINCT id, name, price, rating, lat, lng, distance
+        FROM (SELECT z.id, z.name, z.price, z.rating, z.lat, z.lng,
+              p.radius,
+              p.distance_unit
+                       * DEGREES(ACOS(COS(RADIANS(p.latpoint))
+                       * COS(RADIANS(z.lat))
+                       * COS(RADIANS(p.longpoint - z.lng))
+                       + SIN(RADIANS(p.latpoint))
+                       * SIN(RADIANS(z.lat)))) AS distance
+        FROM WCs AS z
+        JOIN (
+              SELECT  ${lat}  AS latpoint,  ${lng} AS longpoint,
+                      15.0 AS radius, 111.045 AS distance_unit
+          ) AS p ON 1=1
+        WHERE z.lat
+           BETWEEN p.latpoint  - (p.radius / p.distance_unit)
+               AND p.latpoint  + (p.radius / p.distance_unit)
+          AND z.lng
+           BETWEEN p.longpoint - (p.radius / (p.distance_unit * COS(RADIANS(p.latpoint))))
+               AND p.longpoint + (p.radius / (p.distance_unit * COS(RADIANS(p.latpoint))))
+       ) AS d WHERE distance <= radius ORDER BY distance ASC`;
+        return sequelize.query(qry);
+      },
     },
   });
   return WCs;

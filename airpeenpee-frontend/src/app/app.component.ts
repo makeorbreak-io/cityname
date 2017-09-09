@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { CONFIG } from "./core/config/config";
 import { IConfig } from "./core/config/iconfig";
-import { OnInit } from '@angular/core';
+import { AuthenticationService } from "./core/services/authentication.service";
+import { GeoLocationServive } from "./core/services/geolocation.service";
 
 @Component({
   selector: 'app-root',
@@ -9,20 +10,19 @@ import { OnInit } from '@angular/core';
   styleUrls: ['app.component.css'],
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   lat: number = 56.565656;
   lng: number = -56.7676;
 
-  ngOnInit() {
-      $http.get('http://ip-api.com/json')
-      .success(function(coordinates) {
-        lat = coordinates.lat;
-        lng = coordinates.lon;
-    })
+
+  constructor(@Inject(CONFIG) public configuration: IConfig,
+              public authenticationService: AuthenticationService,
+              public geoLocationServive: GeoLocationServive) {
   }
 
-  constructor(@Inject(CONFIG) public configuration: IConfig) {
+  getCurrentLocation(){
+    geoLocationServive.getCurrentLocation();
   }
 
 }

@@ -29,8 +29,13 @@ module.exports = app => {
      *    HTTP/1.1 412 Precondition Failed
      */
     .get((req, res) => {
-      const lat = req.query.lat;
-      const lng = req.query.lng;
+      let lat = req.query.lat;
+      let lng = req.query.lng;
+
+      if (!lat || !lng) {
+        lat = '41.15';
+        lng = '-8.61024';
+      }
       /* WCs.findAll({
         include: [WCCategories],
         // where: { user_id: req.user.id },

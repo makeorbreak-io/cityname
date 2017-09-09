@@ -24,7 +24,7 @@ module.exports = app => {
      */
     .get((req, res) => {
       Users.findById(req.user.id, {
-        attributes: ['id', 'name', 'email'],
+        attributes: ['id', 'name', 'email','filters'],
       })
       .then(result => res.json(result))
       .catch(error => {
@@ -89,16 +89,45 @@ module.exports = app => {
       });
   });
 
+  /**
+   * @api {post} /user/update updates the user filters
+   * @apiGroup User
+   * @apiParamExample {json} Input
+   *    {
+   *      "filters": {
+            "toilet" : "Normal",
+            "urinol" : "Indian like",
+            "whashbin" : "Normal",
+            "BathTub" : "Rustic"
+          }
+   *    }
+   * @apiSuccess {String} email User email
+   * @apiSuccess {object} user filters object
+   * @apiSuccessExample {json} Success
+   *    HTTP/1.1 200 OK
+   *    {
+   *       "id" : 2
+   *      "email": "john@connor.net",
+   *      "filters": {
+   *           "toilet" : "Normal",
+   *           "urinol" : "Indian like",
+   *           "whashbin" : "Normal",
+   *           "BathTub" : "Rustic"
+   *          }
+   *    }
+   * @apiErrorExample {json} Register error
+   *    HTTP/1.1 412 Precondition Failed
+   */
   app.route('/user/update')
   .all(app.auth.authenticate())
   .post((req, res) => {
-    let user = req.user;
-    user.filters = req.body.filters;
-    Users.save(user)
-      .then(result => res.json(result))
-      .catch(error => {
-        res.status(412).json({ msg: error.message });
-      });
+    Users.findOne({where : { id : req.user.id}})
+    .then(dbUser => {
+      dbUser.update({filters : req.body.filters})
+      .then(result => res.json({id : result.id, email : result.email, filters : result.filters}));
+    })
+    .catch(error => {
+      res.status(412).json({ msg: error.message });
+    });
   });
-
 };

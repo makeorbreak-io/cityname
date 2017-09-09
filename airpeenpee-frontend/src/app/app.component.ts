@@ -58,10 +58,18 @@ export class AppComponent implements OnInit {
     this.loginForm.valueChanges.subscribe(data => this.onValueChanged(data));
   }
 
+  /**
+   * Determines if the user is authenticated.
+   *
+   * @returns {boolean} True if the user is authenticated, false otherwise.
+   */
   isLoggedIn() {
     return this.authenticationService.isLoggedIn();
   }
 
+  /**
+   * Performs the login operation.
+   */
   login() {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
@@ -69,6 +77,9 @@ export class AppComponent implements OnInit {
     this.authenticationService.login(email, password);
   }
 
+  /**
+   * Performs the logout operation.
+   */
   logout() {
     this.authenticationService.logout();
   }

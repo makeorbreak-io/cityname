@@ -48,12 +48,41 @@ export class AuthenticationService {
   }
 
   /**
+   * Attempts to register the user.
+   *
+   * @param name Name of the user.
+   * @param email Email of the user.
+   * @param password Password of the user.
+   *
+   * @throws Observable<string> Error message if any.
+   */
+  register(name: string, email: string, password: string) {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(
+      this.configuration.applicationURL + '/token',
+      JSON.stringify({
+        name: name,
+        email: email,
+        password: password
+      }), { headers: headers })
+      .map(response => response.json())
+      .catch((error: any) => Observable.throw(error.json().message || 'Invalid credentials'))
+      .subscribe(response => {
+        this.authenticatedUser = response;
+        localStorage.setItem(this.configuration.sessionStorageName, JSON.stringify(response));
+      });
+  }
+
+  /**
    * Attempts to authenticate the user.
    *
    * @param email Email of the user.
    * @param password Password of the user.
    *
-   * @throws Observable<string> Error message is any.
+   * @throws Observable<string> Error message if any.
    */
   login(email: string, password: string) {
     let headers = new Headers({

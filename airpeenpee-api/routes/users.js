@@ -88,4 +88,17 @@ module.exports = app => {
         res.status(412).json({ msg: error.message });
       });
   });
+
+  app.route('/user/filter')
+    .all(app.auth.authenticate())
+
+    .get((req, res) => {
+      Users.findById(req.user.id, {
+        attributes: ['id', 'name', 'email'],
+      })
+      .then(result => res.json(result))
+      .catch(error => {
+        res.status(412).json({ msg: error.message });
+      });
+    })
 };

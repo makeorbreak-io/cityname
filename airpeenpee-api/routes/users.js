@@ -89,16 +89,16 @@ module.exports = app => {
       });
   });
 
-  app.route('/user/filter')
-    .all(app.auth.authenticate())
-
-    .get((req, res) => {
-      Users.findById(req.user.id, {
-        attributes: ['id', 'name', 'email'],
-      })
+  app.route('/user/update')
+  .all(app.auth.authenticate())
+  .post((req, res) => {
+    let user = req.user;
+    user.filters = req.body.filters;
+    Users.save(user)
       .then(result => res.json(result))
       .catch(error => {
         res.status(412).json({ msg: error.message });
       });
-    })
+  });
+
 };

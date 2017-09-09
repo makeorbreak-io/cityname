@@ -42,6 +42,13 @@ module.exports = (sequelize, DataType) => {
       type: DataType.TEXT,
       allowNull: false,
     },
+    price: {
+      type: DataType.DECIMAL(10, 8),
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
   }, {
     classMethods: {
       associate: (models) => {

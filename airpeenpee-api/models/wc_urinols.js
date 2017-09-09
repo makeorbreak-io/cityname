@@ -12,13 +12,6 @@ module.exports = (sequelize, DataType) => {
         notEmpty: true,
       },
     },
-    description: {
-      type: DataType.TEXT,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
   }, {
     classMethods: {
       associate: (models) => {

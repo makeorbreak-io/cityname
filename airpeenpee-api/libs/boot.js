@@ -7,11 +7,11 @@ module.exports = app => {
       key: fs.readFileSync('ntask.key', 'utf8'),
       cert: fs.readFileSync('ntask.cert', 'utf8'),
     }; */
-    app.db.sequelize.sync().done(() => {
-      http.createServer(app)
-        .listen(app.get('port'), () => {
-          console.log(`NTask API - Port ${app.get('port')}`);
-        });
-    });
+    // app.db.sequelize.sync().done(() => {
+    http.createServer(app)
+      .listen(app.get('port'), () => {
+        console.log(`NTask API - Port ${app.get('port')}`);
+      });
+  //  });
   }
 };

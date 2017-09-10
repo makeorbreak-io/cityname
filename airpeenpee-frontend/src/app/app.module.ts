@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BsDropdownModule } from 'ngx-bootstrap'
+import { CollapseModule } from 'ngx-bootstrap';
+import { SidebarModule } from 'ng-sidebar';
 
 /* Root Component / Landing Page */
 import { AppComponent } from './app.component';
@@ -34,7 +36,9 @@ const routes: Routes = [
       apiKey: 'AIzaSyCrhTDUFc1VSjsgf-jsKMMt82eAPThftt0'
     }),
     ReactiveFormsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    CollapseModule.forRoot(),
+    SidebarModule.forRoot()
   ],
   providers: [
     FormBuilder

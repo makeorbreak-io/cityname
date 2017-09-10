@@ -102,7 +102,11 @@ export class AppComponent implements OnInit {
               public geoLocationServive: GeoLocationServive) {
   }
 
+  public _opened: boolean = false;
 
+  public _toggleSidebar() {
+    this._opened = !this._opened;
+  }
 
   /**
    * Called on component initialization.

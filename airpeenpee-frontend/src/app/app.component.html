@@ -1,80 +1,95 @@
-<nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
+<ng-sidebar-container>
+  <!-- A sidebar -->
+  <ng-sidebar mode="push" [(opened)]="_opened">
+    <p>Sidebar contents</p>
+    <button (click)="_toggleSidebar()">Toggle sidebar</button>
 
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/">{{ configuration.applicationName }}</a>
-    </div>
+  </ng-sidebar>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-navbar-collapse">
-      <ul class="nav navbar-nav">
-        <button *ngIf="isLoggedIn()" routerLink="bathroom" type="button" class="btn btn-default navbar-btn">Your
-          bathrooms
-        </button>
-      </ul>
+  <!-- Page content -->
+  <div ng-sidebar-content>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
 
-      <ul class="nav navbar-nav navbar-right">
-        <button *ngIf="!isLoggedIn()" routerLink="account/register" type="button" class="btn btn-info navbar-btn">
-          Register
-        </button>
-        <div *ngIf="!isLoggedIn()" class="btn-group" dropdown>
-          <button dropdownToggle type="button" class="btn btn-success navbar-btn">
-            Login <span class="caret"></span>
-          </button>
-          <ul *dropdownMenu class="dropdown-menu" role="menu">
-            <li>
-              <div class="row">
-                <div class="col-md-10 col-md-offset-1">
-                  <form class="form" role="form" [formGroup]="loginForm" (submit)="login()" novalidate>
-                    <div class="form-group" [class.has-error]="loginFormErrors.email">
-                      <label class="control-label" for="email">Email</label>
-                      <input type="text" id="email" class="form-control" placeholder="Email" formControlName="email"
-                             required>
-                      <span class="help-block" *ngIf="loginFormErrors.email">{{ loginFormErrors.email }}</span>
-                    </div>
-                    <div class="form-group" [class.has-error]="loginFormErrors.password">
-                      <label class="control-label" for="password">Password</label>
-                      <input type="password" id="password" class="form-control" placeholder="Password"
-                             formControlName="password" required>
-                      <span class="help-block" *ngIf="loginFormErrors.password">{{ loginFormErrors.password }}</span>
-                    </div>
-                    <button (click)="login()" [disabled]="!loginForm.valid" type="button" class="btn btn- navbar-btn">
-                      Login
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </li>
-          </ul>
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" routerLink="/">{{ configuration.applicationName }}</a>
         </div>
-        <p *ngIf="isLoggedIn()" class="navbar-text">{{ greeting() }}</p>
-        <button *ngIf="isLoggedIn()" (click)="logout()" type="button" class="btn btn-danger navbar-btn">Logout</button>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-<agm-map
-  [latitude]="lat"
-  [longitude]="lng"
-  [styles]="styles"
-  [zoom]="zoom"
-  [disableDefaultUI]="false"
-  [zoomControl]="false"
-  [streetViewControl]="false"
-  [mapTypeId]="'roadmap'"
-  (mapClick)="mapClicked($event)">
 
-  <agm-marker
-    *ngFor="let m of markers; let i = index"
-    (markerClick)="clickedMarker(m.label, i)"
-    [latitude]="m.lat"
-    [longitude]="m.lng"
-    [label]="m.label"
-    [iconUrl]="'/assets/whereyoumakethapoop.png'"
-    [markerDraggable]="m.draggable"
-    (dragEnd)="markerDragEnd(m, $event)">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-navbar-collapse">
+          <ul class="nav navbar-nav">
+            <button *ngIf="isLoggedIn()" routerLink="bathroom" type="button" class="btn btn-default navbar-btn">Your
+              bathrooms
+            </button>
+          </ul>
 
-  </agm-marker>
-</agm-map>
-<router-outlet></router-outlet>
+          <ul class="nav navbar-nav navbar-right">
+            <button *ngIf="!isLoggedIn()" routerLink="account/register" type="button" class="btn btn-info navbar-btn">
+              Register
+            </button>
+            <div *ngIf="!isLoggedIn()" class="btn-group" dropdown>
+              <button dropdownToggle type="button" class="btn btn-success navbar-btn">
+                Login <span class="caret"></span>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li>
+                  <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                      <form class="form" role="form" [formGroup]="loginForm" (submit)="login()" novalidate>
+                        <div class="form-group" [class.has-error]="loginFormErrors.email">
+                          <label class="control-label" for="email">Email</label>
+                          <input type="text" id="email" class="form-control" placeholder="Email" formControlName="email"
+                                 required>
+                          <span class="help-block" *ngIf="loginFormErrors.email">{{ loginFormErrors.email }}</span>
+                        </div>
+                        <div class="form-group" [class.has-error]="loginFormErrors.password">
+                          <label class="control-label" for="password">Password</label>
+                          <input type="password" id="password" class="form-control" placeholder="Password"
+                                 formControlName="password" required>
+                          <span class="help-block" *ngIf="loginFormErrors.password">{{ loginFormErrors.password }}</span>
+                        </div>
+                        <button (click)="login()" [disabled]="!loginForm.valid" type="button" class="btn btn- navbar-btn">
+                          Login
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <p *ngIf="isLoggedIn()" class="navbar-text">{{ greeting() }}</p>
+            <button *ngIf="isLoggedIn()" (click)="logout()" type="button" class="btn btn-danger navbar-btn">Logout</button>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <button (click)="_toggleSidebar()">Toggle sidebar</button>
+
+    <agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+      [styles]="styles"
+      [zoom]="zoom"
+      [disableDefaultUI]="false"
+      [zoomControl]="false"
+      [streetViewControl]="false"
+      [mapTypeId]="'roadmap'"
+      (mapClick)="mapClicked($event)">
+
+      <agm-marker
+        *ngFor="let m of markers; let i = index"
+        (markerClick)="clickedMarker(m.label, i)"
+        [latitude]="m.lat"
+        [longitude]="m.lng"
+        [label]="m.label"
+        [iconUrl]="'/assets/whereyoumakethapoop.png'"
+        [markerDraggable]="m.draggable"
+        (dragEnd)="markerDragEnd(m, $event)">
+
+      </agm-marker>
+    </agm-map>
+    <router-outlet></router-outlet>
+  </div>
+</ng-sidebar-container>

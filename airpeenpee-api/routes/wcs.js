@@ -1,6 +1,7 @@
 module.exports = app => {
   const WCs = app.db.models.WCs;
   const WCCategories = app.db.models.WCCategories;
+  const WCViews = app.db.models.WCViews;
 
   app.route('/wcs')
     // .all(app.auth.authenticate())
@@ -126,6 +127,21 @@ module.exports = app => {
      */
     .get((req, res) => {
       WCCategories.findAll()
+      .then(result => {
+        if (result) {
+          res.json(result);
+        } else {
+          res.sendStatus(404);
+        }
+      })
+      .catch(error => {
+        res.status(412).json({ msg: error.message });
+      });
+    });
+
+  app.route('/wcs/views')
+    .get((req, res) => {
+      WCViews.findAll()
       .then(result => {
         if (result) {
           res.json(result);

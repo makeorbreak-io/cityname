@@ -17,52 +17,8 @@ export class AppComponent implements OnInit {
   marker: marker;
   lat: number;
   lng: number;
-  zoom: number = 15;
-  styles: object= [
-  {
-    "featureType": "administrative.land_parcel",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.neighborhood",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "labels.text",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "labels.text",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  }
-];
+  zoom: number = 13;
+  styles: object= this.configuration.mapSettings;
   markers: marker[] = [];
 
   /**
@@ -114,7 +70,7 @@ export class AppComponent implements OnInit {
   		  lat: response.lat,
   		  lng: response.lon,
   		  title: 'YOU ARE HERE',
-        iconUrl: '/assets/rsz_1toilet.png'
+        iconUrl: '/assets/rsz_1person_pooping.png'
   	  });
       this.lat = response.lat;
       this.lng = response.lon;

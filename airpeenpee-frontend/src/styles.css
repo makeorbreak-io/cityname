@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* No margin */
+.navbar { margin-bottom: 0 }
+
+/* Circular button */
+.btn-circle-float {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+  position: absolute;
+  z-index: 1;
+  top: 37%;
+  margin-left: 1%;
+}

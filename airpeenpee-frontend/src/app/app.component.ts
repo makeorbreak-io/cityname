@@ -11,8 +11,6 @@ import { AgmSnazzyInfoWindow } from "@agm/snazzy-info-window";
   templateUrl: './app.component.html',
   styleUrls: ['app.component.css'],
 })
-
-
 export class AppComponent implements OnInit {
 
   marker: marker;
@@ -97,15 +95,30 @@ export class AppComponent implements OnInit {
     }
   };
 
+  /**
+   *
+   * @type {boolean}
+   * @private
+   */
+  public _opened: boolean = false;
+
+  /**
+   *
+   * @param configuration
+   * @param authenticationService
+   * @param formBuilder
+   * @param geoLocationServive
+   */
   constructor(@Inject(CONFIG) public configuration: IConfig,
               public authenticationService: AuthenticationService,
               private formBuilder: FormBuilder,
               public geoLocationServive: GeoLocationServive) {
   }
 
-  public _opened: boolean = false;
-
-  public _toggleSidebar() {
+  /**
+   * Toggles and untoggles the side bar.
+   */
+  public sideBar() {
     this._opened = !this._opened;
   }
 

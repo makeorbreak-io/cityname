@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BsDropdownModule } from 'ngx-bootstrap'
+import { BsDropdownConfig, BsDropdownModule } from 'ngx-bootstrap'
 import { CollapseModule } from 'ngx-bootstrap';
 import { SidebarModule } from 'ng-sidebar';
 
@@ -37,7 +37,9 @@ const routes: Routes = [
       apiKey: 'AIzaSyCrhTDUFc1VSjsgf-jsKMMt82eAPThftt0'
     }),
     ReactiveFormsModule,
-    BsDropdownModule.forRoot(),
+    BsDropdownModule.forRoot({
+      autoClose: false
+    }),
     CollapseModule.forRoot(),
     SidebarModule.forRoot()
   ],

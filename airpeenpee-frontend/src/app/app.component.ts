@@ -4,6 +4,7 @@ import { IConfig } from "./core/config/iconfig";
 import { AuthenticationService } from "./core/services/authentication.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { GeoLocationServive } from "./core/services/geolocation.service";
+import { AgmSnazzyInfoWindow } from "@agm/snazzy-info-window";
 
 @Component({
   selector: 'app-root',
@@ -58,7 +59,11 @@ export class AppComponent implements OnInit {
               public geoLocationServive: GeoLocationServive) {
   }
 
+  public _opened: boolean = false;
 
+  public _toggleSidebar() {
+    this._opened = !this._opened;
+  }
 
   /**
    * Called on component initialization.

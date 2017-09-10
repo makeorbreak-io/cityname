@@ -36,19 +36,84 @@ export class BathroomService {
       { headers: headers })
       .toPromise()
       .then(response => response.json() as Array<Bathroom>)
-      .catch();
+      .catch(this.handleError);
   }
 
   /**
+   * Creates a bathroom for rental based on the retrieved information.
    *
-   *
-   * @param bathroom
+   * @param bathroom Bathroom to rent.
    */
   rentBathroom(bathroom: Bathroom) {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': this.authenticationService.token()
+    });
 
+    this.http.post(
+      `${this.configuration.applicationURL}/wcs/me`,
+      { headers: headers })
+      .toPromise()
+      .then(response => response.json() as Bathroom)
+      .catch(this.handleError);
   }
 
-
+  // /**
+  //  * Fetches a meal based on its id.
+  //  *
+  //  * @param id Meal identifier.
+  //  * @returns {Promise<any|Meal>} Meal found.
+  //  */
+  // getMeal(id
+  //           :
+  //           number
+  // ):
+  // Promise < Meal > {
+  //   const url = `${this.mealsURL}/${id}`;
+  //
+  //   return this.http.get(url, { headers: this.headers })
+  //     .toPromise()
+  //     .then(response => response.json() as Meal)
+  //     .catch(this.handleError);
+  // }
+  //
+  // /**
+  //  * Updates a meal based on performed modifications.
+  //  *
+  //  * @param meal Updated meal
+  //  * @returns {Promise<any|Meal>} Updated meal.
+  //  */
+  // updateMeal(meal
+  //              :
+  //              Meal
+  // ):
+  // Promise < Meal > {
+  //   const url = `${this.mealsURL}/${meal.id}`;
+  //   return this.http
+  //     .put(url, JSON.stringify(meal), { headers: this.headers })
+  //     .toPromise()
+  //     .then(() => meal)
+  //     .catch(this.handleError);
+  // }
+  //
+  // /**
+  //  * Deletes a meal based on its id.
+  //  *
+  //  * @param id Meal identifier.
+  //  * @returns {Promise<any>} Nothing
+  //  */
+  // deleteMeal(id
+  //              :
+  //              number
+  // ):
+  // Promise < void > {
+  //   const url = `${this.mealsURL}/${id}`;
+  //
+  //   return this.http.delete(url, { headers: this.headers })
+  //     .toPromise()
+  //     .then(() => null)
+  //     .catch(this.handleError);
+  // }
 
   /**
    * Handles any error that might occur.

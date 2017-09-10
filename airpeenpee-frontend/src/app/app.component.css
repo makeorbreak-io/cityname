@@ -1,6 +1,13 @@
 agm-map {
-  min-height: 600px;
-  height: 600px;
+  height: 100vh;
+}
+
+ng-sidebar {
+  background-color: white;
+}
+
+ng-sidebar-container {
+  height: 100vh;
 }
 
 agm-marker{

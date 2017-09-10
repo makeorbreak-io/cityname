@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap'
+import { CollapseModule } from 'ngx-bootstrap';
+import { SidebarModule } from 'ng-sidebar';
 
 /* Root Component / Landing Page */
 import { AppComponent } from './app.component';
@@ -12,6 +14,7 @@ import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
 
 /* Angular Google Maps Module */
 import { AgmCoreModule } from '@agm/core';
+import { AgmSnazzyInfoWindowModule, AgmSnazzyInfoWindow } from '@agm/snazzy-info-window';
 
 /* Routing */
 const routes: Routes = [
@@ -34,7 +37,9 @@ const routes: Routes = [
       apiKey: 'AIzaSyCrhTDUFc1VSjsgf-jsKMMt82eAPThftt0'
     }),
     ReactiveFormsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    CollapseModule.forRoot(),
+    SidebarModule.forRoot()
   ],
   providers: [
     FormBuilder

@@ -63,8 +63,8 @@ module.exports = (sequelize, DataType) => {
         WCs.belongsToMany(models.WCExtras, { through: 'WCsExtras' });
       },
       getPlaceByLatLng: (lat, lng, filter) => {
-        const qry = `SELECT DISTINCT id, name, price, rating, lat, lng, distance
-        FROM (SELECT z.id, z.name, z.price, z.rating, z.lat, z.lng,
+        const qry = `SELECT DISTINCT id, name, price, rating, img, lat, lng, distance
+        FROM (SELECT z.id, z.name, z.price, z.rating, z.img, z.lat, z.lng,
               p.radius,
               p.distance_unit
                        * DEGREES(ACOS(COS(RADIANS(p.latpoint))

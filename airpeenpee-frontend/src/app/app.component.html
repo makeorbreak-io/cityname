@@ -67,14 +67,23 @@
 
   <agm-marker
     *ngFor="let m of markers; let i = index"
-    (markerClick)="clickedMarker(m.label, i)"
+    (markerClick)="clickedMarker(m,i)"
     [latitude]="m.lat"
     [longitude]="m.lng"
-    [label]="m.label"
-    [iconUrl]="'/assets/whereyoumakethapoop.png'"
+    [title]="m.title"
+    [iconUrl]="m.iconUrl"
+    [openInfoWindow]="true"
     [markerDraggable]="m.draggable"
     (dragEnd)="markerDragEnd(m, $event)">
-
+<!--
+    <agm-snazzy-info-window
+      [maxWidth]="200"
+      [closeWhenOthersOpen]="true">
+        <ng-template>
+          {{}}
+        </ng-template>
+    </agm-snazzy-info-window>
+  -->
   </agm-marker>
 </agm-map>
 <router-outlet></router-outlet>

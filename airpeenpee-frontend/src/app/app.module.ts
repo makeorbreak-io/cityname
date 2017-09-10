@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BsDropdownModule } from 'ngx-bootstrap'
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 /* Root Component / Landing Page */
 import { AppComponent } from './app.component';

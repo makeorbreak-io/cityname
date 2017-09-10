@@ -6,6 +6,7 @@ import { Bathroom } from '../models/Bathroom';
 import { AuthenticatedUser } from "../../core/models/AuthenticatedUser";
 import { AuthenticationService } from "../../core/services/authentication.service";
 import { CONFIG } from "../../core/config/config";
+import { BathroomCategories } from "../models/BathroomCategories";
 
 @Injectable()
 export class BathroomService {
@@ -20,6 +21,23 @@ export class BathroomService {
   constructor(private http: Http,
               private authenticationService: AuthenticationService,
               @Inject(CONFIG) private configuration) {
+  }
+
+  /**
+   *
+   * @returns {Promise<any|TResult2|Array<BathroomCategories>>}
+   */
+  getCategoryFilter() {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.get(
+      `${this.configuration.applicationURL}/wcs/categories`,
+      { headers: headers })
+      .toPromise()
+      .then(response => response.json() as Array<BathroomCategories>)
+      .catch(this.handleError);
   }
 
   /**

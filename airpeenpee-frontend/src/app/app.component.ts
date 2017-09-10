@@ -5,6 +5,8 @@ import { AuthenticationService } from "./core/services/authentication.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { GeoLocationServive } from "./core/services/geolocation.service";
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+import { BathroomService } from "app/bathroom/services/bathroom.service";
+import { BathroomCategories } from "./bathroom/models/BathroomCategories";
 
 @Component({
   selector: 'app-root',
@@ -56,6 +58,8 @@ export class AppComponent implements OnInit {
       'minlength': 'Password should be at least 6 characters long.'
     }
   };
+
+  searchForm: FormGroup;
 
   /**
    *
@@ -121,7 +125,15 @@ export class AppComponent implements OnInit {
     });
 
     this.loginForm.valueChanges.subscribe(data => this.onValueChanged(data));
+
+    this.searchForm = this.formBuilder.group({
+      categories: [ '', []]
+    });
+
+    this.searchForm.valueChanges.subscribe(data => this.onValueChanged(data));
   }
+
+  public categories: Array<BathroomCategories>;
 
   /**
    * Determines if the user is authenticated.
@@ -139,6 +151,11 @@ export class AppComponent implements OnInit {
    */
   greeting() {
     return this.authenticationService.greeting();
+  }
+
+  search() {
+
+
   }
 
   /**

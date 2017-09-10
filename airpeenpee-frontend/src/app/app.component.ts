@@ -4,7 +4,7 @@ import { IConfig } from "./core/config/iconfig";
 import { AuthenticationService } from "./core/services/authentication.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { GeoLocationServive } from "./core/services/geolocation.service";
-import { AgmSnazzyInfoWindow } from "@agm/snazzy-info-window";
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 
 @Component({
   selector: 'app-root',
@@ -16,53 +16,15 @@ export class AppComponent implements OnInit {
   marker: marker;
   lat: number;
   lng: number;
-  zoom: number = 15;
-  styles: object= [
-  {
-    "featureType": "administrative.land_parcel",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.neighborhood",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "labels.text",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "labels.text",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  }
-];
+  zoom: number = 13;
+  styles: object= this.configuration.mapSettings;
   markers: marker[] = [];
+  info: infoWindow = {
+    img:'',
+    tooltip:'',
+    lat:0,
+    lng:0
+  };
 
   /**
    * Login form.
@@ -132,8 +94,9 @@ export class AppComponent implements OnInit {
   		  lat: response.lat,
   		  lng: response.lon,
   		  title: 'YOU ARE HERE',
-        iconUrl: '/assets/rsz_1toilet.png'
+        iconUrl: '/assets/rsz_1person_pooping.png'
   	  });
+
       this.lat = response.lat;
       this.lng = response.lon;
 
@@ -144,7 +107,8 @@ export class AppComponent implements OnInit {
       		  lat: element.lat,
       		  lng: element.lng,
       		  title: element.name,
-            iconUrl: '/assets/rsz_bathroom.png'
+            iconUrl: '/assets/rsz_bathroom.png',
+            img:element.img
       	  });
         });
       });
@@ -223,10 +187,23 @@ export class AppComponent implements OnInit {
     let coords = $event.coords;
     //console.dir(coords);
   }
-  clickedMarker(m, $event){
+
+  clickedMarker(m, i){
     console.dir(m);
-    console.dir($event);
+    this.info = {
+      img:m.img,
+      tooltip:m.title,
+      lat:m.lat,
+      lng:m.lng
+    }
   }
+}
+
+interface infoWindow{
+  img:string;
+  tooltip:string;
+  lat:number;
+  lng:number;
 }
 
 interface marker {
@@ -235,4 +212,5 @@ interface marker {
   iconUrl: string;
 	title?: string;
 	draggable?: false;
+  img?:string;
 }

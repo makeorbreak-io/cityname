@@ -3,4 +3,5 @@ export interface IConfig {
   applicationURL: string;
   sessionStorageName: string;
   currentLocation: string;
+  mapSettings: object;
 }

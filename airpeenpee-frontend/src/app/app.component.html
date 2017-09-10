@@ -64,27 +64,39 @@
 
     <button (click)="sideBar()" type="button" class="btn btn-default btn-circle-float btn-lg"><i ngClass="{{ _opened ? 'glyphicon-menu-left' : 'glyphicon-menu-right' }}" class="glyphicon"></i></button>
 
-    <agm-map>
-      <agm-marker
-        *ngFor="let m of markers; let i = index"
-        (markerClick)="clickedMarker(m,i)"
-        [latitude]="m.lat"
-        [longitude]="m.lng"
-        [title]="m.title"
-        [iconUrl]="m.iconUrl"
-        [openInfoWindow]="true"
-        [markerDraggable]="m.draggable"
-        (dragEnd)="markerDragEnd(m, $event)">
-        <!--
-            <agm-snazzy-info-window
-              [maxWidth]="200"
-              [closeWhenOthersOpen]="true">
-                <ng-template>
-                  {{}}
-                </ng-template>
-            </agm-snazzy-info-window>
-          -->
-      </agm-marker>
+    <agm-map
+      [latitude]="lat"
+       [longitude]="lng"
+       [zoom]="zoom"
+       [disableDefaultUI]="false"
+       [zoomControl]="false"
+       [styles]="styles"
+       (mapClick)="mapClicked($event)">
+        <agm-marker
+          *ngFor="let m of markers; let i = index"
+          (markerClick)="clickedMarker(m,i)"
+          [latitude]="m.lat"
+          [longitude]="m.lng"
+          [title]="m.title"
+          [iconUrl]="m.iconUrl"
+          [openInfoWindow]="true"
+          [markerDraggable]="m.draggable"
+          (dragEnd)="markerDragEnd(m, $event)">
+
+          <agm-snazzy-info-window
+             [isOpen]="false"
+             [latitude]="info.lat"
+             [longitude]="info.lng"
+             [closeWhenOthersOpen]="true">
+              <ng-template>
+                <div>
+                  <span>{{info.tooltip}}</span>
+                  <img src="{{info.img}}" width="300" />
+                </div>
+              </ng-template>
+          </agm-snazzy-info-window>
+
+        </agm-marker>
     </agm-map>
     <router-outlet></router-outlet>
   </div>

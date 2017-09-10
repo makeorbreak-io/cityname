@@ -107,18 +107,17 @@
         (dragEnd)="markerDragEnd(m, $event)">
 
         <agm-snazzy-info-window
-          [isOpen]="false"
-          [latitude]="info.lat"
-          [longitude]="info.lng"
-          [closeWhenOthersOpen]="true">
-          <ng-template>
-            <div>
-              <span>{{info.tooltip}}</span>
-              <img src="{{info.img}}" width="300"/>
-            </div>
-          </ng-template>
-        </agm-snazzy-info-window>
-
+             [isOpen]="false"
+             [latitude]="info.lat"
+             [longitude]="info.lng"
+             [closeWhenOthersOpen]="true">
+              <ng-template width="300px" height="250px">
+                <div style="margin-right: 25%;">
+                  <h3 style="color: white;">{{info.tooltip}}</h3>
+                  <img src="{{info.img}}" width="250" />
+                </div>
+              </ng-template>
+          </agm-snazzy-info-window>
       </agm-marker>
     </agm-map>
     <router-outlet></router-outlet>

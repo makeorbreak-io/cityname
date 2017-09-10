@@ -47,9 +47,11 @@
                           <label class="control-label" for="password">Password</label>
                           <input type="password" id="password" class="form-control" placeholder="Password"
                                  formControlName="password" required>
-                          <span class="help-block" *ngIf="loginFormErrors.password">{{ loginFormErrors.password }}</span>
+                          <span class="help-block"
+                                *ngIf="loginFormErrors.password">{{ loginFormErrors.password }}</span>
                         </div>
-                        <button (click)="login()" [disabled]="!loginForm.valid" type="button" class="btn btn- navbar-btn">
+                        <button (click)="login()" [disabled]="!loginForm.valid" type="button"
+                                class="btn btn- navbar-btn">
                           Login
                         </button>
                       </form>
@@ -59,7 +61,8 @@
               </ul>
             </div>
             <p *ngIf="isLoggedIn()" class="navbar-text">{{ greeting() }}</p>
-            <button *ngIf="isLoggedIn()" (click)="logout()" type="button" class="btn btn-danger navbar-btn">Logout</button>
+            <button *ngIf="isLoggedIn()" (click)="logout()" type="button" class="btn btn-danger navbar-btn">Logout
+            </button>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -67,27 +70,26 @@
 
     <button (click)="_toggleSidebar()">Toggle sidebar</button>
 
-    <agm-map
-      [latitude]="lat"
-      [longitude]="lng"
-      [styles]="styles"
-      [zoom]="zoom"
-      [disableDefaultUI]="false"
-      [zoomControl]="false"
-      [streetViewControl]="false"
-      [mapTypeId]="'roadmap'"
-      (mapClick)="mapClicked($event)">
-
+    <agm-map>
       <agm-marker
         *ngFor="let m of markers; let i = index"
-        (markerClick)="clickedMarker(m.label, i)"
+        (markerClick)="clickedMarker(m,i)"
         [latitude]="m.lat"
         [longitude]="m.lng"
-        [label]="m.label"
-        [iconUrl]="'/assets/whereyoumakethapoop.png'"
+        [title]="m.title"
+        [iconUrl]="m.iconUrl"
+        [openInfoWindow]="true"
         [markerDraggable]="m.draggable"
         (dragEnd)="markerDragEnd(m, $event)">
-
+        <!--
+            <agm-snazzy-info-window
+              [maxWidth]="200"
+              [closeWhenOthersOpen]="true">
+                <ng-template>
+                  {{}}
+                </ng-template>
+            </agm-snazzy-info-window>
+          -->
       </agm-marker>
     </agm-map>
     <router-outlet></router-outlet>

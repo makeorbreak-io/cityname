@@ -4,6 +4,7 @@ import { IConfig } from "./core/config/iconfig";
 import { AuthenticationService } from "./core/services/authentication.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { GeoLocationServive } from "./core/services/geolocation.service";
+import { AgmSnazzyInfoWindow } from "@agm/snazzy-info-window";
 
 @Component({
   selector: 'app-root',
@@ -117,7 +118,8 @@ export class AppComponent implements OnInit {
       this.markers.push({
   		  lat: response.lat,
   		  lng: response.lon,
-  		  label: 'YOU ARE HERE'
+  		  title: 'YOU ARE HERE',
+        iconUrl: '/assets/rsz_1toilet.png'
   	  });
       this.lat = response.lat;
       this.lng = response.lon;
@@ -128,14 +130,13 @@ export class AppComponent implements OnInit {
           this.markers.push({
       		  lat: element.lat,
       		  lng: element.lng,
-      		  label: element.name
+      		  title: element.name,
+            iconUrl: '/assets/rsz_bathroom.png'
       	  });
         });
-        console.log(this.markers);
       });
 
     });
-
 
     this.loginForm = this.formBuilder.group({
       email: [ '', [ Validators.required, Validators.email ] ],
@@ -204,11 +205,21 @@ export class AppComponent implements OnInit {
       }
     }
   }
+
+  mapClicked($event){
+    let coords = $event.coords;
+    //console.dir(coords);
+  }
+  clickedMarker(m, $event){
+    console.dir(m);
+    console.dir($event);
+  }
 }
 
 interface marker {
 	lat: number;
 	lng: number;
-	label?: string;
+  iconUrl: string;
+	title?: string;
 	draggable?: false;
 }

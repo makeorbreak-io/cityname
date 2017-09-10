@@ -9,3 +9,8 @@ ng-sidebar {
 ng-sidebar-container {
   height: 100vh;
 }
+
+agm-marker{
+  min-height: 10px;
+  height: 15px;
+}

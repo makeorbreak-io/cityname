@@ -14,7 +14,7 @@ import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
 
 /* Angular Google Maps Module */
 import { AgmCoreModule } from '@agm/core';
-import { AgmSnazzyInfoWindowModule, AgmSnazzyInfoWindow } from '@agm/snazzy-info-window';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 
 /* Routing */
 const routes: Routes = [
@@ -39,7 +39,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
-    SidebarModule.forRoot()
+    SidebarModule.forRoot(),
+    AgmSnazzyInfoWindowModule
   ],
   providers: [
     FormBuilder

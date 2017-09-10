@@ -14,3 +14,9 @@ agm-marker{
   min-height: 10px;
   height: 15px;
 }
+
+.si-has-border .si-content-wrapper {
+    border: 1px solid #bbb;
+    width: 450px;
+    height: 250px;
+}

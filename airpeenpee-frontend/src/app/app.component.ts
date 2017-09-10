@@ -4,7 +4,7 @@ import { IConfig } from "./core/config/iconfig";
 import { AuthenticationService } from "./core/services/authentication.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { GeoLocationServive } from "./core/services/geolocation.service";
-import { AgmSnazzyInfoWindow } from "@agm/snazzy-info-window";
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +21,12 @@ export class AppComponent implements OnInit {
   zoom: number = 13;
   styles: object= this.configuration.mapSettings;
   markers: marker[] = [];
+  info: infoWindow = {
+    img:'',
+    tooltip:'',
+    lat:0,
+    lng:0
+  };
 
   /**
    * Login form.
@@ -77,6 +83,7 @@ export class AppComponent implements OnInit {
   		  title: 'YOU ARE HERE',
         iconUrl: '/assets/rsz_1person_pooping.png'
   	  });
+
       this.lat = response.lat;
       this.lng = response.lon;
 
@@ -87,7 +94,8 @@ export class AppComponent implements OnInit {
       		  lat: element.lat,
       		  lng: element.lng,
       		  title: element.name,
-            iconUrl: '/assets/rsz_bathroom.png'
+            iconUrl: '/assets/rsz_bathroom.png',
+            img:element.img
       	  });
         });
       });
@@ -166,10 +174,23 @@ export class AppComponent implements OnInit {
     let coords = $event.coords;
     //console.dir(coords);
   }
-  clickedMarker(m, $event){
+
+  clickedMarker(m, i){
     console.dir(m);
-    console.dir($event);
+    this.info = {
+      img:m.img,
+      tooltip:m.title,
+      lat:m.lat,
+      lng:m.lng
+    }
   }
+}
+
+interface infoWindow{
+  img:string;
+  tooltip:string;
+  lat:number;
+  lng:number;
 }
 
 interface marker {
@@ -178,4 +199,5 @@ interface marker {
   iconUrl: string;
 	title?: string;
 	draggable?: false;
+  img?:string;
 }
